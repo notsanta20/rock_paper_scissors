@@ -5,6 +5,8 @@ const buttons = document.querySelectorAll(`#buttons`);
 const roundResult = document.querySelector(`#roundResult`);
 const finalResult = document.querySelector(`#finalResult`);
 const container = document.querySelector(`#container`);
+const userSelectionText = document.querySelector(`#userSelectionText`);
+const computerSelectionText = document.querySelector(`#computerSelectionText`);
 const words = [`rock`, `paper`, `scissor`];
 let userScore = 0;
 let computerScore = 0;
@@ -66,6 +68,8 @@ buttons.forEach(button =>{
         if (round < 5) {
             playerSelection = game.target.id;
             computerSelection = getComputerSelection();
+            userSelectionText.textContent = `Your Selection - ${playerSelection}`;
+            computerSelectionText.textContent = `Computer Selection - ${computerSelection}`;
             playRound(playerSelection, computerSelection);
 
             roundText.textContent = `Round - ${round}`;
