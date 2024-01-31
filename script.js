@@ -1,73 +1,88 @@
-let playerSelection;
-let computerSelection;
-let words = [`rock`, `paper`, `scissor`];
-
+const roundText = document.querySelector(`#round`);
+const userScoreText = document.querySelector(`#userScore`);
+const computerScoreText = document.querySelector(`#computerScore`);
+const buttons = document.querySelectorAll(`#buttons`);
+const roundResult = document.querySelector(`#roundResult`);
+const finalResult = document.querySelector(`#finalResult`);
+const container = document.querySelector(`#container`);
+const words = [`rock`, `paper`, `scissor`];
 let userScore = 0;
-let npcScore = 0;
+let computerScore = 0;
 let round = 0;
 
-function choice(){
-    playerSelection = prompt(`Welcome, Choose Rock, Paper or Scissor ?`);
-    playerSelection = playerSelection.toLowerCase();
-
-    computerSelection = Math.floor(Math.random() * 3);
-    computerSelection = words[computerSelection];
-
+function getComputerSelection () {
+    return words[Math.floor(Math.random() * 3)];
 }
 
-function playRound() {
-    round++;
-    choice();
-
+function playRound (playerSelection, computerSelection) {
+    round ++;
+    
     if (playerSelection === computerSelection) {
-        alert(`Tied. Choose Rock, Paper or Scissor ? `);
-        playRound();
-    }else if (playerSelection === `rock`) {
-        console.log(`Computer Selection - ` + computerSelection);
-        console.log(`Your Selection - ` + playerSelection);
-        if (computerSelection === `paper`) {
-            npcScore ++;
-            return console.log(`You Lose! Paper beats Rock`);
-        }
-        else (computerSelection === `scissor`)
-            userScore ++;
-            return console.log(`You WON!!! Rock beats Scissor`);
-    }else if (playerSelection === `paper`) {
-        console.log(`Computer Selection - ` + computerSelection);
-        console.log(`Your Selection - ` + playerSelection);
-        if (computerSelection === `scissor`) {
-            npcScore ++;
-            console.log(`You Lose! Scissor beats Paper`);
-        }
-        else (computerSelection === `rock`)
-            userScore ++;
-            console.log(`You WON!!! Paper beats Rock`);
-    }else if (playerSelection === `scissor`) {
-        console.log(`Computer Selection - ` + computerSelection);
-        console.log(`Your Selection - ` + playerSelection);
-        if (computerSelection === `rock`) {
-            npcScore ++;
-            console.log(`You Lose! Rock beats Scissor`);
-        }
-        else (computerSelection === `paper`)
-            userScore ++;
-            console.log(`You WON!!! Scissor beats paper`);
-    }else
-        alert(`Wrong word, Choose the word from the list`);
-        
-}
-
-function game(){
-    while (round != 5) {
-        playRound();
-    }
-
-    if (userScore > npcScore) {
-        console.log(`YOU WON THE GAME!!! You Scored ` + userScore + ` out of 5.`);
+        roundResult.textContent = `Its a TIE!!`;
     }
     else
-        console.log(`YOU LOST:( Computer Scored ${npcScore} out of 5. TRY AGAIN!`);
-}
+        if (
+        (playerSelection === `rock` && computerSelection === `scissor`) ||
+        (playerSelection === `paper` && computerSelection === `rock`) ||
+        (playerSelection === `scissor` && computerSelection === `paper`)
+        ) {
+            userScore ++;
+            roundResult.textContent = `You Won!!! ${playerSelection} beats ${computerSelection}`;
+        }
+        else {
+            computerScore ++;
+            roundResult.textContent = `You Lost! ${computerSelection} beats ${playerSelection}`;
+        }
+};
 
-game();
+const disableButtons = () => {
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+};
 
+const resetButton = document.createElement(`button`);
+resetButton.textContent = `Reset`;
+resetButton.addEventListener(`click`, ()=>{
+    userScore = 0;
+    computerScore = 0;
+    round = 0;
+    roundResult.textContent = ``;
+    finalResult.textContent = ``;
+
+    roundText.textContent = `Round - ${round}`;
+    userScoreText.textContent = `Your Score - ${userScore}`;
+    computerScoreText.textContent = `Computer Score - ${computerScore}`;
+
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+
+    resetButton.remove();
+});
+
+buttons.forEach(button =>{
+    button.addEventListener(`click`, game => {
+        if (round < 5) {
+            playerSelection = game.target.id;
+            computerSelection = getComputerSelection();
+            playRound(playerSelection, computerSelection);
+
+            roundText.textContent = `Round - ${round}`;
+            userScoreText.textContent = `Your Score - ${userScore}`;
+            computerScoreText.textContent = `Computer Score - ${computerScore}`;
+            if (round === 5) {
+                if (userScore > computerScore) {
+                    finalResult.textContent = `You WON!!! you beat computer by ${userScore} points.`;
+                }
+                else {
+                    finalResult.textContent = `You LOST! :( better luck next time.`;
+                }
+                container.appendChild(resetButton);
+            }
+            
+        }
+        
+        
+    });
+});
