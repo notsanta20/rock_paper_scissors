@@ -1,45 +1,87 @@
-body{
-    font-family: Rubik;
-    background-color: rgb(230, 230, 230);
-    margin: 0px;
-}
-
-#container{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, sans serif;
+  }
+  
+  body{
+    background-color: rgb(233, 233, 233);
+  }
+  
+  .container{
+    background-color: rgb(236, 236, 236);
+    width: 500px;
+    height: 500px;
+    margin: 20px auto;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-}
-
-
-#title{
-    font-family: Forum;
-    font-size: 25px;
+    
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.295);
+  
+  }
+  
+  .heading{
+    font-size: 2rem;
+    font-weight: 800;
     text-align: center;
-}
-
-button{
-    font-size: 20px;
-    padding: 5px 20px;
-    margin: 25px;
-    border-radius: 5px;
-    border: 0px;
-    background-color:rgb(194, 194, 194)
-}
-
-#text{
+    padding: 20px;
+  }
+  
+  .scoreContainer{
     display: flex;
-    justify-content: space-evenly;
-    gap: 100px;
-    margin: 25px;
-    font-size: 20px;
-
-}
-
-#roundResult,
-#finalResult,
-#userSelectionText,
-#computerSelectionText {
-    font-size: 20px;
-    margin: 10px;
-}
+    justify-content: center;
+  }
+  
+  .scoreContainer div{
+    font-size: 1.5rem;
+    font-weight: 500;
+  
+    padding: 20px;
+  }
+  
+  
+  .playButtons{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .rpsBtn,
+  .restart{
+    font-size: 1.5rem;
+    font-weight: 500;
+    border: 0px solid;
+    background-color: rgb(196, 196, 196);
+    border-radius: 5px;
+  
+    padding: 10px 20px;
+    margin: 20px;
+  }
+  
+  .rpsBtn:hover,
+  .restart:hover{
+    background-color: rgb(172, 172, 172);;
+  }
+  
+  .results{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .results div{
+    font-size: 1.2rem;
+    font-weight: 500;
+  
+    padding: 10px;
+  }
+  
+  .restart{
+    display: flex;
+    justify-content: flex-end;
+  
+    margin: 20px auto;
+   }
+  

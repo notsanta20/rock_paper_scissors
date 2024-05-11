@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RPS Game</title>
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Forum&family=Lora:wght@500&family=Rubik&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <title>Document</title>
 </head>
 <body>
-    <div id="container">
-        <h1 id="title">Welcome to Rock Paper Scissors</h1>
-      
-        <div id="buttons">
-            
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissor">Scissor</button>
-        </div>
-        <div id="userSelectionText">Your Selection - </div>
-        <div id="computerSelectionText">Computer Selection - </div>
-        <div id="text">
-            <div id="round">Round - 0</div>
-            <div id="userScore">Your Score - 0</div>
-            <div id="computerScore">Computer Score - 0</div>
-        </div>
-  
-        <div id="roundResult"></div>
-        <div id="finalResult"></div>
-      </div> 
-
-    <script src="script.js"></script>
+  <div class="container">
+    <div class="heading">Rock Paper and Scissors</div>      
+    <div class="scoreContainer">
+      <div class="playerScore">Player : 0</div>
+      <div class="computerScore">Computer : 0</div>
+    </div>
+    <div class="playButtons">
+      <button class="rpsBtn" value="Rock">Rock</button>
+      <button class="rpsBtn" value="Paper">paper</button>
+      <button class="rpsBtn" value="Scissors">Scissors</button>
+    </div>
+    <div class="results">
+      <div class="playerText">Player Choice</div>
+      <div class="computerText">Computer Choice</div>
+      <div class="resultText">Result</div>
+    </div>
+    <button class="restart">Restart</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -1,92 +1,75 @@
-const roundText = document.querySelector(`#round`);
-const userScoreText = document.querySelector(`#userScore`);
-const computerScoreText = document.querySelector(`#computerScore`);
-const buttons = document.querySelectorAll(`#buttons`);
-const roundResult = document.querySelector(`#roundResult`);
-const finalResult = document.querySelector(`#finalResult`);
-const container = document.querySelector(`#container`);
-const userSelectionText = document.querySelector(`#userSelectionText`);
-const computerSelectionText = document.querySelector(`#computerSelectionText`);
-const words = [`rock`, `paper`, `scissor`];
-let userScore = 0;
-let computerScore = 0;
-let round = 0;
+const buttons = document.querySelectorAll(`.rpsBtn`);
+const playerText = document.querySelector(`.playerText`);
+const computerText = document.querySelector(`.computerText`);
+const resultText = document.querySelector(`.resultText`);
+const playerScore = document.querySelector(`.playerScore`);
+const computerScore = document.querySelector(`.computerScore`);
+const restartBtn = document.querySelector(`.restart`);
 
-function getComputerSelection () {
-    return words[Math.floor(Math.random() * 3)];
+let computerChoice;
+let round = 0;
+let userScore = 0;
+let npcScore = 0;
+
+function getComputerChoice() {
+    const options = [`Rock`, `Paper`, `Scissors`];
+    return computerChoice = options[Math.floor(Math.random() * 3)];
 }
 
-function playRound (playerSelection, computerSelection) {
-    round ++;
+function playRound(computerChoice, userChoice){
+    playerText.textContent = `Player Choice - ${userChoice}`;
+    computerText.textContent = `Computer Choice - ${computerChoice}`;
     
-    if (playerSelection === computerSelection) {
-        roundResult.textContent = `Its a TIE!!`;
+    if(computerChoice === userChoice){
+        resultText.textContent = `Its a Tie!!! play again`
     }
-    else
-        if (
-        (playerSelection === `rock` && computerSelection === `scissor`) ||
-        (playerSelection === `paper` && computerSelection === `rock`) ||
-        (playerSelection === `scissor` && computerSelection === `paper`)
-        ) {
-            userScore ++;
-            roundResult.textContent = `You Won!!! ${playerSelection} beats ${computerSelection}`;
+    else{
+        round++;
+        if((userChoice == `Rock` && computerChoice == `Scissors`) ||
+           (userChoice == `Paper` && computerChoice == `Rock`) ||
+           (userChoice == `Scissors` && computerChoice == `Paper`)){
+           resultText.textContent = `Scissors beats Paper`;
+           userScore++;
+           playerScore.textContent = `Player : ${userScore}`; 
         }
-        else {
-            computerScore ++;
-            roundResult.textContent = `You Lost! ${computerSelection} beats ${playerSelection}`;
+        else{
+            resultText.textContent = `${computerChoice} beats ${userChoice}`;
+            npcScore++;
+            computerScore.textContent = `Computer : ${npcScore}`; 
         }
-};
+    }
+}
 
-const disableButtons = () => {
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
-};
+buttons.forEach(button=>{
+    button.addEventListener(`click`, () => {
+        if(round < 5){
+            getComputerChoice();
+            let userChoice = button.value;
+            playRound(computerChoice, userChoice);
 
-const resetButton = document.createElement(`button`);
-resetButton.textContent = `Reset`;
-resetButton.addEventListener(`click`, ()=>{
-    userScore = 0;
-    computerScore = 0;
-    round = 0;
-    roundResult.textContent = ``;
-    finalResult.textContent = ``;
-
-    roundText.textContent = `Round - ${round}`;
-    userScoreText.textContent = `Your Score - ${userScore}`;
-    computerScoreText.textContent = `Computer Score - ${computerScore}`;
-
-    buttons.forEach(button => {
-        button.disabled = false;
-    });
-
-    resetButton.remove();
-});
-
-buttons.forEach(button =>{
-    button.addEventListener(`click`, game => {
-        if (round < 5) {
-            playerSelection = game.target.id;
-            computerSelection = getComputerSelection();
-            userSelectionText.textContent = `Your Selection - ${playerSelection}`;
-            computerSelectionText.textContent = `Computer Selection - ${computerSelection}`;
-            playRound(playerSelection, computerSelection);
-
-            roundText.textContent = `Round - ${round}`;
-            userScoreText.textContent = `Your Score - ${userScore}`;
-            computerScoreText.textContent = `Computer Score - ${computerScore}`;
-            if (round === 5) {
-                if (userScore > computerScore) {
-                    finalResult.textContent = `You WON!!! you beat computer by ${userScore} points.`;
+            if(round === 5){
+                restartBtn.style.visibility = `visible`;
+                if(userScore > npcScore){
+                    resultText.textContent = `You Win! you beat computer by ${userScore} points`;
                 }
-                else {
-                    finalResult.textContent = `You LOST! :( better luck next time.`;
+                else{
+                    resultText.textContent = `You Lose! :( Computer won by ${npcScore} points`;
                 }
-                container.appendChild(resetButton);
             }
-            
         }
-        
-        
-    });
-});
+    })
+})
+
+restartBtn.style.visibility = `hidden`;
+restartBtn.addEventListener(`click`, ()=>{
+    round = 0;
+    userScore = 0;
+    npcScore = 0;
+    playerScore.textContent = `Player : ${userScore}`;
+    computerScore.textContent = `Computer : ${npcScore}`; 
+    playerText.textContent = `Player Choice - `;
+    computerText.textContent = `Computer Choice - `;
+    resultText.textContent = `Result `;
+
+    restartBtn.style.visibility = `hidden`;
+})
